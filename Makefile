@@ -9,7 +9,9 @@ PROJECT_SOURCES = $(MAIN_SRC) \
 				  $(SRC_DIR)/print/print.c \
 				  $(SRC_DIR)/scene/scene.c \
 				  $(SRC_DIR)/scene/canvas.c \
-				  $(SRC_DIR)/trace/ray.c \
+				  $(SRC_DIR)/scene/object_create.c \
+				  $(SRC_DIR)/trace/ray/ray.c \
+				  $(SRC_DIR)/trace/hit/hit_sphere.c \
 				  $(SRC_DIR)/utils/vec3_utils.c
 
 # Object files
@@ -54,10 +56,6 @@ fclean: clean
 	rm -f $(NAME)
 	make -C $(LIBFT_DIR) fclean
 	@cd $(MLX_DIR) && [ -f Makefile.gen ] && make clean -f Makefile.gen || true
-
-re: fclean all
-
-.PHONY: all clean fclean re
 
 re: fclean all
 
