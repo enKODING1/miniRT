@@ -1,14 +1,17 @@
-#include "vec3.h"
+#include "utils.h"
 
+// 벡터3 생성자
 t_vec3 vec3(double x, double y, double z)
 {
     t_vec3 vec;
+
     vec.x = x;
     vec.y = y;
     vec.z = z;
     return (vec);
 }
 
+// 포인트3 생성자
 t_point3 point3(double x, double y, double z)
 {
     t_point3 point;
@@ -19,6 +22,7 @@ t_point3 point3(double x, double y, double z)
     return (point);
 }
 
+// 색상3 생성자
 t_point3 color3(double r, double g, double b)
 {
     t_color3 color;
@@ -43,13 +47,13 @@ double vlength2(t_vec3 vec)
     return (vec.x * vec.x + vec.y * vec.y + vec.z * vec.z);
 }
 
-// 벡터의 길이, x^2 + y^2 + z^2의 제곱근
+// 벡터 길이
 double vlength(t_vec3 vec)
 {
     return (sqrt(vlength2(vec)));
 }
 
-// 벡터합, x끼리, y끼리, z끼리 더한다.
+// 벡터합
 t_vec3 vplus(t_vec3 vec, t_vec3 vec2)
 {
     vec.x += vec2.x;
@@ -67,7 +71,7 @@ t_vec3 vplus_(t_vec3 vec, double x, double y, double z)
     return (vec);
 }
 
-// 벡터차, x끼리, y끼리, z끼리 뺀다.
+// 벡터차
 t_vec3 vminus(t_vec3 vec, t_vec3 vec2)
 {
     vec.x -= vec2.x;
@@ -84,15 +88,7 @@ t_vec3 vminus_(t_vec3 vec, double x, double y, double z)
     return (vec);
 }
 
-t_vec3 vminus_self(t_vec3 vec)
-{
-    vec.x = -vec.x;
-    vec.y = -vec.y;
-    vec.z = -vec.z;
-    return (vec);
-}
-
-// (단위)벡터 * 스칼라, 곱연산.
+// 벡터 * 스칼라 곱연산
 t_vec3 vmult(t_vec3 vec, double t)
 {
     vec.x *= t;
@@ -140,9 +136,7 @@ t_vec3 vcross(t_vec3 vec, t_vec3 vec2)
 // 단위 벡터
 t_vec3 vunit(t_vec3 vec)
 {
-    double len;
-
-    len = vlength(vec);
+    double len = vlength(vec);
     if (len == 0)
     {
         printf("Error\n:Devider is 0");

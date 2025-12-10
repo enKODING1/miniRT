@@ -1,43 +1,43 @@
 #include <stdio.h>
-#include <mlx.h>
-#include "libft.h"
 
-typedef struct s_data
-{
-    void *img;
-    char *addr;
-    int bits_per_pixel;
-    int line_length;
-    int endian;
-} t_data;
-
-void my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-    char *dst;
-
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int *)dst = color;
-}
+#include "structures.h"
+#include "utils.h"
+#include "print.h"
+#include "scene.h"
+#include "trace.h"
 
 int main(void)
 {
-    void *mlx_ptr;
-    void *win_ptr;
-    t_data image;
+    int i;
+    int j;
+    double u;
+    double v;
+    t_color3 pixel_color;
+    t_canvas canv;
+    t_camera cam;
+    t_ray ray;
 
-    mlx_ptr = mlx_init();
-    win_ptr = mlx_new_window(mlx_ptr, 500, 500, "Hello world!");
-    image.img = mlx_new_image(mlx_ptr, 500, 500);
-    image.addr = mlx_get_data_addr(image.img, &image.bits_per_pixel, &image.line_length, &image.endian);
-    for (int i = 0; i < 500; i++)
+    // 캔버스의 가로, 세로 픽셀값
+    canv = canvas(400, 300);
+    cam = camera(&canv, point3(0, 0, 0));
+
+    // 랜더링
+    // P3 는 색상값이 아스키코드라는 뜻, 그리고 다음 줄은 캔버스의 가로, 세로 픽셀 수, 마지막은 사용할 색상값
+    printf("P3\n%d %d\n255\n", canv.width, canv.height);
+    j = canv.height - 1;
+    while (j >= 0)
     {
-        for (int j = 0; j < 500; j++)
+        i = 0;
+        while (i < canv.width)
         {
-            my_mlx_pixel_put(&image, i, j, 0x00FFFFFF);
+            u = (double)i / (canv.width - 1);
+            v = (double)j / (canv.height - 1);
+            ray = ray_primary(&cam, u, v);
+            pixel_color = ray_color(&ray);
+            write_color(pixel_color);
+            ++i;
         }
+        --j;
     }
-    mlx_put_image_to_window(mlx_ptr, win_ptr, image.img, 0, 0);
-    mlx_loop(mlx_ptr);
-
-    return 0;
+    return (0);
 }
