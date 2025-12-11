@@ -11,7 +11,9 @@ PROJECT_SOURCES = $(MAIN_SRC) \
 				  $(SRC_DIR)/scene/canvas.c \
 				  $(SRC_DIR)/scene/object_create.c \
 				  $(SRC_DIR)/trace/ray/ray.c \
+				  $(SRC_DIR)/trace/hit/hit.c \
 				  $(SRC_DIR)/trace/hit/hit_sphere.c \
+				  $(SRC_DIR)/trace/hit/normal.c \
 				  $(SRC_DIR)/utils/vec3_utils.c
 
 # Object files

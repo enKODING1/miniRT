@@ -1,4 +1,5 @@
 #include "scene.h"
+#include "utils.h"
 
 t_camera camera(t_canvas *canvas, t_point3 orig)
 {
