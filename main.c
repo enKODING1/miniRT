@@ -18,16 +18,24 @@ t_scene *scene_init(void)
 
     scene->ambient = vmult(color3(1, 1, 1), ka); // 8.4 에서 설명
     scene->canvas = canvas(400, 300);
+    // scene->camera = camera(&scene->canvas, point3(0, 0, 0));
+    // world = object(SP, sphere(point3(-2, 0, -5), 2), color3(0.5, 0, 0));          // world 에 구1 추가
+    // oadd(&world, object(SP, sphere(point3(2, 0, -5), 2), color3(0, 0.5, 0)));     // world 에 구2 추가
+    // oadd(&world, object(SP, sphere(point3(0, -1000, 0), 1000), color3(1, 1, 1))); // world 에 구3 추가
+    // scene->world = world;
+    // lights = object(LIGHT_POINT, light_point(point3(0, 5, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0)); // 더미 albedo
+    // scene->light = lights;
     scene->camera = camera(&scene->canvas, point3(0, 0, 0));
-    world = object(SP, sphere(point3(-2, 0, -5), 2), color3(0.5, 0, 0));          // world 에 구1 추가
-    oadd(&world, object(SP, sphere(point3(2, 0, -5), 2), color3(0, 0.5, 0)));     // world 에 구2 추가
-    oadd(&world, object(SP, sphere(point3(0, -1000, 0), 1000), color3(1, 1, 1))); // world 에 구3 추가
+    world = object(SP, sphere(point3(-2, 0, -5), 2), color3(0.5, 0, 0));         // world 에 구1 추가
+    oadd(&world, object(SP, sphere(point3(0, -1000, 0), 995), color3(1, 1, 1))); // world 에 구3 추가
+    oadd(&world, object(SP, sphere(point3(2, 0, -5), 2), color3(0, 0.5, 0)));    // world 에 구2 추가
     scene->world = world;
-    lights = object(LIGHT_POINT, light_point(point3(0, 5, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0)); // 더미 albedo
+    lights = object(LIGHT_POINT, light_point(point3(10, 20, 0), color3(1, 1, 1), 0.5), color3(0, 0, 0)); // 더미 albedo
     scene->light = lights;
-    ka = 0.1;                                    // 8.4 에서 설명
-    scene->ambient = vmult(color3(1, 1, 1), ka); // 8.4 에서 설명
     return (scene);
+    //     ka = 0.1;                                // 8.4 에서 설명
+    // scene->ambient = vmult(color3(1, 1, 1), ka); // 8.4 에서 설명
+    // return (scene);
 }
 
 int main(void)
