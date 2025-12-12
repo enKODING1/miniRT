@@ -36,6 +36,8 @@ t_color3 point_light_get(t_scene *scene, t_light *light)
     double ksn;
     double ks;
 
+    double brightness;
+
     light_dir = vunit(vminus(light->origin, scene->rec.p)); // 교점에서 출발하여 광원을 향하는 벡터(정규화 됨)
     // cosΘ는 Θ 값이 90도 일 때 0이고 Θ가 둔각이 되면 음수가 되므로 0.0보다 작은 경우는 0.0으로 대체한다.
     kd = fmax(vdot(scene->rec.normal, light_dir), 0.0); // (교점에서 출발하여 광원을 향하는 벡터)와 (교점에서의 법선벡터)의 내적값.
@@ -47,5 +49,6 @@ t_color3 point_light_get(t_scene *scene, t_light *light)
     ks = 0.5; // specular strength
     spec = pow(fmax(vdot(view_dir, reflect_dir), 0.0), ksn);
     specular = vmult(vmult(light->light_color, ks), spec);
-    return (vplus(diffuse, specular));
+    brightness = light->bright_ratio * LUMEN;
+    return (vmult(vplus(diffuse, specular), brightness));
 }
