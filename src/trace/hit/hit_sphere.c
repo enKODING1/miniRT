@@ -2,7 +2,7 @@
 #include "utils.h"
 #include "trace.h"
 
-t_bool hit_sphere(t_object *obj, t_ray *ray, t_hit_record *rec)
+t_bool hit_sphere(t_object *sp_obj, t_ray *ray, t_hit_record *rec)
 {
     t_sphere *sp;
     t_vec3 oc;
@@ -13,9 +13,9 @@ t_bool hit_sphere(t_object *obj, t_ray *ray, t_hit_record *rec)
     double sqrtd;
     double root;
 
-    if (!obj || !obj->element)
-        return (FALSE);
-    sp = (t_sphere *)obj->element;
+    // if (!obj || !obj->element)
+    //     return (FALSE);
+    sp = sp_obj->element;
 
     oc = vminus(ray->orig, sp->center);
 
@@ -39,5 +39,6 @@ t_bool hit_sphere(t_object *obj, t_ray *ray, t_hit_record *rec)
     rec->p = ray_at(ray, root);
     rec->normal = vdivide(vminus(rec->p, sp->center), sp->radius);
     set_face_normal(ray, rec);
+    rec->albedo = sp_obj->albedo;
     return (TRUE);
 }

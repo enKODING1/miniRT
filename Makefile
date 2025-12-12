@@ -14,7 +14,8 @@ PROJECT_SOURCES = $(MAIN_SRC) \
 				  $(SRC_DIR)/trace/hit/hit.c \
 				  $(SRC_DIR)/trace/hit/hit_sphere.c \
 				  $(SRC_DIR)/trace/hit/normal.c \
-				  $(SRC_DIR)/utils/vec3_utils.c
+				  $(SRC_DIR)/utils/vec3_utils.c \
+				  $(SRC_DIR)/trace/ray/phong_lighting.c
 
 # Object files
 OBJECTS = $(PROJECT_SOURCES:.c=.o)
